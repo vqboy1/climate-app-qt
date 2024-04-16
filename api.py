@@ -8,7 +8,7 @@ def get_weather(town):
     CITY_NAME = town
 
     # Формируем URL для запроса
-    url = f'http://api.openweathermap.org/data/2.5/weather?q={CITY_NAME}&appid={API_KEY}&lang=ru'
+    url = f'http://api.openweathermap.org/data/2.5/weather?q={CITY_NAME}&appid={API_KEY}&lang=ru&units=metric'
 
     # Отправляем GET запрос и получаем данные о погоде
     response = requests.get(url)
@@ -73,7 +73,6 @@ def get_time_5day(data):
     for i in range(len(data["list"])):
         date.append(f'{data["list"][i]["dt_txt"][5:-6]}ч \n'.replace(' ', '\n'))
 
-    print(date)
     return date
 
 
