@@ -26,7 +26,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -466,6 +466,11 @@
          <layout class="QVBoxLayout" name="verticalLayout_10">
           <item>
            <widget class="QLabel" name="label_week">
+            <property name="font">
+             <font>
+              <family>Courier New</family>
+             </font>
+            </property>
             <property name="text">
              <string/>
             </property>

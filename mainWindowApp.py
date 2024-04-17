@@ -189,6 +189,9 @@ class Ui_Form(object):
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.frame_6)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
         self.label_week = QtWidgets.QLabel(parent=self.frame_6)
+        font = QtGui.QFont()
+        font.setFamily("Courier New")
+        self.label_week.setFont(font)
         self.label_week.setText("")
         self.label_week.setObjectName("label_week")
         self.verticalLayout_10.addWidget(self.label_week)
@@ -302,7 +305,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.tabWidget)
 
         self.retranslateUi(Form)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):

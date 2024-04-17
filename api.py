@@ -80,7 +80,7 @@ def get_weather_7day(town):
     offset = data['timezone_offset']
     dates = []
     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
-    template = 'День недели    Мин. темп.   Макс. темп.   Осадки \n\n'
+    template = 'День недели    Мин. темп.     Макс. темп.   Осадки \n\n'
 
     for i in range(7):
         ts = data['daily'][i]['dt'] + offset
@@ -94,10 +94,7 @@ def get_weather_7day(town):
         max_temp = str(int(data_daily[i]['temp']['max'])) + ' C°'
         description = data_daily[i]['weather'][0]['description']
         day_number = days[calendar.weekday(year, month, day)]
-        seps = {"Понедельник": ' ' * 10, "Вторник": ' ' * 19,
-                "Среда": ' ' * 22, "Четверг": ' ' * 19, "Пятница": ' ' * 19, "Суббота": ' ' * 19,
-                "Воскресенье": ' ' * 10}
-        template += day_number + seps[day_number] + min_temp + ' ' * (5 - len(min_temp) + 7) * 2 + max_temp + ' ' * (
+        template += day_number + ' ' * (11 - len(day_number) + 7) + min_temp + ' ' * (5 - len(min_temp) + 4) * 2 + max_temp + ' ' * (
                     5 - len(max_temp) + 7) + description + '\n'
 
     return template
