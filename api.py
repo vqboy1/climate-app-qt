@@ -4,6 +4,8 @@ import calendar
 
 from geopy.geocoders import Nominatim
 
+import statistics as st
+
 
 def get_weather(town):
 
@@ -81,6 +83,8 @@ def get_weather_7day(town):
     dates = []
     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
     template = 'День недели    Мин. темп.     Макс. темп.   Осадки \n\n'
+    lst_min = []
+    lst_max = []
 
     for i in range(7):
         ts = data['daily'][i]['dt'] + offset
@@ -90,15 +94,32 @@ def get_weather_7day(town):
         date = [int(i) for i in dates[i].split('-')]
         data_daily = data['daily']
         year, month, day = date[0], date[1], date[2]
-        min_temp = str(int(data_daily[i]['temp']['min'])) + ' C°'
-        max_temp = str(int(data_daily[i]['temp']['max'])) + ' C°'
+
+        min_temp = int(data_daily[i]['temp']['min'])
+        lst_min.append(min_temp)
+
+        max_temp = int(data_daily[i]['temp']['max'])
+        lst_max.append(max_temp)
+
+        min_temp = str(min_temp) + ' C°'
+        max_temp = str(max_temp) + ' C°'
+
         description = data_daily[i]['weather'][0]['description']
         day_number = days[calendar.weekday(year, month, day)]
-        template += day_number + ' ' * (11 - len(day_number) + 7) + min_temp + ' ' * (5 - len(min_temp) + 4) * 2 + max_temp + ' ' * (
-                    5 - len(max_temp) + 7) + description + '\n'
+        template += day_number + ' ' * (11 - len(day_number) + 7) + \
+                    min_temp + ' ' * (5 - len(min_temp) + 4) * 2 + max_temp + ' ' * (
+                    5 - len(max_temp) + 7) + description + '\n' * 2
+
+    template += '\n' * 2
+    mid_min_temp = int(st.mean(lst_min))
+    mid_max_temp = int(st.mean(lst_max))
+    diff_min = str(max(lst_min) - min(lst_min))
+    diff_max = str(max(lst_max) - min(lst_max))
+
+    template += 'Среднее арифм.' + ' ' * 4 + str(mid_min_temp) + ' C°' + ' ' * (5 - len(str(mid_min_temp)) + 6) + str(mid_max_temp) + ' C°' + '\n' * 2
+    template += 'Размах        ' + ' ' * 4 + str(diff_min) + ' C°' + ' ' * (5 - len(str(diff_min)) + 6) + str(diff_max) + ' C°'
 
     return template
-
 
 def get_weather_5day(town):
 

@@ -58,13 +58,13 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                 prime = stats['main']
                 max_temp = prime['temp_max']
                 min_temp = prime['temp_min']
-                self.label_current_weather.setText(f"Город {stats['name']} \n"
+                self.label_current_weather.setText(f"Город {stats['name']} \n \n"
                                        f"Дата: {day_time[0]} \n"         
                                        f"Текущее время: {day_time[1]} \n \n"                                                   
                                        f"Влажность: {prime['humidity']}% \n"
                                        f"Макс. темп: {round(max_temp, 2)}°C \n"
                                        f"Мин. темп: {round(min_temp, 2)}°C \n"
-                                       f"Сегодня у нас {clouds} \n"
+                                       f"Осадки: {clouds} \n"
                                        f"Облачность: {stats['clouds']['all']}% \n"
                                        f"Скорость ветра: {wind['speed']} м/с \n"
                                        f"Давление: {round(prime['pressure'] * 0.75, 1)} мм. рт. ст. \n"
