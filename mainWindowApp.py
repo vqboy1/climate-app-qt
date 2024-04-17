@@ -13,7 +13,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(862, 604)
-        Form.setStyleSheet("background-color:qlineargradient(spread:reflect, x1:0.483182, y1:0.807, x2:0.483, y2:0, stop:0 rgba(30, 105, 196, 255), stop:1 rgba(255, 205, 0, 255))")
+        Form.setStyleSheet("background-color:qlineargradient(spread:reflect, x1:0.921, y1:0.0965, x2:0.023, y2:1, stop:0 rgba(158, 165, 176, 255), stop:1 rgba(0, 147, 255, 255))")
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")
         self.tabWidget = QtWidgets.QTabWidget(parent=Form)
@@ -76,7 +76,6 @@ class Ui_Form(object):
         self.label_current_weather = QtWidgets.QLabel(parent=self.frame_4)
         self.label_current_weather.setStyleSheet("")
         self.label_current_weather.setText("")
-        self.label_current_weather.setPixmap(QtGui.QPixmap("../../Downloads/623522_nebo_oblaka_zakat_peyzaj_vid-s-aeroplana_3888x2592_www.Gde-Fon.com_.jpg"))
         self.label_current_weather.setObjectName("label_current_weather")
         self.verticalLayout_18.addWidget(self.label_current_weather)
         self.verticalLayout_6.addWidget(self.frame_4)
@@ -299,7 +298,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.tabWidget)
 
         self.retranslateUi(Form)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(5)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):

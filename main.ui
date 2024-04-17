@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color:qlineargradient(spread:reflect, x1:0.483182, y1:0.807, x2:0.483, y2:0, stop:0 rgba(30, 105, 196, 255), stop:1 rgba(255, 205, 0, 255))</string>
+   <string notr="true">background-color:qlineargradient(spread:reflect, x1:0.921, y1:0.0965, x2:0.023, y2:1, stop:0 rgba(158, 165, 176, 255), stop:1 rgba(0, 147, 255, 255))</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -26,7 +26,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -180,9 +180,6 @@
             </property>
             <property name="text">
              <string/>
-            </property>
-            <property name="pixmap">
-             <pixmap>../../Downloads/623522_nebo_oblaka_zakat_peyzaj_vid-s-aeroplana_3888x2592_www.Gde-Fon.com_.jpg</pixmap>
             </property>
            </widget>
           </item>
