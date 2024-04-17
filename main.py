@@ -23,6 +23,23 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
 
         self.btnGetWeatherWeek.clicked.connect(self.on_get_weather_7day_press)
 
+        self.btnGetWeatherAirPollution.clicked.connect(self.on_get_air_pollution_press)
+
+    def on_get_air_pollution_press(self):
+        town = self.lineEditTownAirPollution.text()
+        if len(town) == 0:
+            self.label_air_pollution.setText('Введите город')
+        else:
+            try:
+                template = get_air_pollution_data(town)
+                self.label_air_pollution.setText(template)
+                self.label_8.setText(f'Атмосферное загрязнение (микрограмм на кубометр) - {town}')
+                self.lineEditTownWeek.setText('')
+            except:
+                self.label_week.setText("Что-то пошло не так. Попробуйте еще раз")
+
+
+
     def build_graph(self):
         if self.layoutDayGraph.count() > 0:
             self.layoutDayGraph.removeWidget(self.plll)
@@ -73,7 +90,6 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
             except:
                 self.label_current_weather.setText("Что-то пошло не так. Попробуйте еще раз")
 
-
     def on_get_weather_1day_press(self):
         town = self.lineEditTownDay.text()
         if len(town) == 0:
@@ -85,8 +101,6 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                 self.lineEditTownDay.setText('')
             except:
                 self.label_day.setText("Что-то пошло не так. Попробуйте еще раз")
-
-
 
     def on_get_weather_7day_press(self):
         town = self.lineEditTownWeek.text()

@@ -31,6 +31,9 @@ def get_weather(town):
     return data
 
 
+
+
+
 def get_time(data):
 
     import pytz
@@ -57,6 +60,85 @@ def get_time(data):
     current_day = str(datetime_town.today()).split()[0]
     current_time = datetime_town.strftime("%H:%M:%S")
     return [current_day, current_time]
+
+
+def get_air_pollution_data(town):
+    location = geo_locator.geocode(town)
+    lat = location.raw['lat']
+    lon = location.raw['lon']
+    url = f"http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={API_KEY}"
+    response = requests.get(url)
+    data = response.json()['list'][0]['components']
+    template = '\n\n SO2 \t NO2 \t PM10 \t PM2.5 \t O₃ \t CO \n\n'.expandtabs(10)
+    template += f'{data["so2"]} \t {data["no2"]} \t {data["pm10"]} \t {data["pm2_5"]} \t {data["o3"]} \t {data["co"]} \n\n'.expandtabs(10)
+
+    if data["so2"] <= 20:
+        template += f'Идеальное соотношение SO2\n\n'
+    elif 20 < data["so2"] < 80:
+        template += f'Малое превышение SO2 на {round(data["so2"] - 20, 2)} мкг/м3 \n\n'
+    elif 80 <= data["so2"] < 250:
+        template += f'Превышение SO2 на {round(data["so2"] - 20, 2)} мкг/м3 \n\n'
+    elif 250 <= data["so2"] < 350:
+        template += f'Значительное превышение SO2 на {round(data["so2"] - 20, 2)} мкг/м3 \n\n'
+    else:
+        template += f'Опасное количество SO2\n\n'
+
+    if data["no2"] <= 40:
+        template += f'Идеальное соотношение NO2\n\n'
+    elif 40 < data["no2"] < 70:
+        template += f'Малое превышение NO2 на {round(data["no2"] - 40, 2)} мкг/м3 \n\n'
+    elif 70 <= data["no2"] < 150:
+        template += f'Превышение NO2 на {round(data["no2"] - 40, 2)} мкг/м3 \n\n'
+    elif 150 <= data["no2"] < 200:
+        template += f'Значительное превышение NO2 на {round(data["no2"] - 40, 2)} мкг/м3 \n\n'
+    else:
+        template += f'Опасное количество NO2!\n\n'
+
+    if data["pm10"] <= 20:
+        template += f'Идеальное соотношение PM10\n\n'
+    elif 20 < data["pm10"] < 50:
+        template += f'Малое превышение PM10 на {round(data["pm10"] - 20, 2)} мкг/м3 \n\n'
+    elif 50 <= data["pm10"] < 100:
+        template += f'Превышение PM10 на {round(data["pm10"] - 20, 2)} мкг/м3 \n\n'
+    elif 100 <= data["pm10"] < 200:
+        template += f'Значительное превышение PM10 на {round(data["pm10"] - 20, 2)} мкг/м3 \n\n'
+    else:
+        template += f'Опасное количество PM10!\n\n'
+
+    if data["pm2_5"] <= 10:
+        template += f'Идеальное соотношение PM2.5\n\n'
+    elif 10 < data["pm2_5"] < 25:
+        template += f'Малое превышение PM2.5 на {round(data["pm2_5"] - 10, 2)} мкг/м3 \n\n'
+    elif 25 <= data["pm2_5"] < 50:
+        template += f'Превышение PM2.5 на {round(data["pm2_5"] - 10, 2)} мкг/м3 \n\n'
+    elif 50 <= data["pm2_5"] < 75:
+        template += f'Значительное превышение PM2.5 на {round(data["pm2_5"] - 10, 2)} мкг/м3 \n\n'
+    else:
+        template += f'Опасное количество PM2.5!\n\n'
+
+    if data["o3"] <= 60:
+        template += f'Идеальное соотношение O3\n\n'
+    elif 60 < data["o3"] < 100:
+        template += f'Малое превышение O₃ на {round(data["o3"] - 60, 2)} мкг/м3 \n\n'
+    elif 100 <= data["o3"] < 140:
+        template += f'Превышение O₃ на {round(data["o3"] - 60, 2)} мкг/м3 \n\n'
+    elif 140 <= data["o3"] < 180:
+        template += f'Значительное превышение O₃ на {round(data["o3"] - 60, 2)} мкг/м3 \n\n'
+    else:
+        template += f'Опасное количество O₃!\n\n'
+
+    if data["co"] <= 4400:
+        template += f'Идеальное соотношение CO\n\n'
+    elif 4400 < data["co"] < 9400:
+        template += f'Малое превышение CO на {round(data["co"] - 4400, 2)} мкг/м3 \n\n'
+    elif 9400 <= data["co"] < 12400:
+        template += f'Превышение CO на {round(data["co"] - 4400, 2)} мкг/м3 \n\n'
+    elif 12400 <= data["co"] < 15400:
+        template += f'Значительное превышение CO на {round(data["co"] - 4400, 2)} мкг/м3 \n\n'
+    else:
+        template += f'Опасное количество CO!\n'
+
+    return template
 
 
 def get_weather_1day(town):
@@ -92,11 +174,7 @@ def get_weather_1day(town):
     template += f'\nСр арифм. \t {str(mid_temp)} C° \t \t {str(diff_temp)} C° \n\n'.expandtabs(12)
     template += f'Размах   \t {str(mid_temp_f)} C° \t \t {str(diff_temp_f)} C°'.expandtabs(12)
 
-
     return template
-
-
-print(get_weather_1day('london'))
 
 
 def get_weather_7day(town):
