@@ -1,5 +1,7 @@
 import requests
 
+import calendar
+
 from geopy.geocoders import Nominatim
 
 
@@ -50,7 +52,18 @@ def get_time(data):
     return [current_day, current_time]
 
 
+def get_weather_1day(town):
+    geo_locator = Nominatim(user_agent='climate-app-qt')
+    location = geo_locator.geocode(town)
+    lat = location.raw['lat']
+    lon = location.raw['lon']
+    API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
+    CITY_NAME = town
+    pass
+
+
 def get_weather_7day(town):
+    from datetime import datetime
 
     geo_locator = Nominatim(user_agent='climate-app-qt')
     location = geo_locator.geocode(town)
@@ -59,13 +72,32 @@ def get_weather_7day(town):
 
     API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
     CITY_NAME = town
-    url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={API_KEY}&exclude=minutely,current,hourly,alerts&units=metric"
+    url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={API_KEY}" \
+          f"&exclude=minutely,current,hourly,alerts&units=metric&lang=ru"
     response = requests.get(url)
     data = response.json()
 
-    return data["daily"]
+    offset = data['timezone_offset']
+    dates = []
+    days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
+    template = 'День недели    Мин. темп.   Макс. темп.   Осадки \n'
 
-print(get_weather_7day('Moscow'))
+    for i in range(7):
+        ts = data['daily'][i]['dt'] + offset
+        dates.append(datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S').split()[0])
+
+    for i in range(7):
+        date = [int(i) for i in dates[i].split('-')]
+        data_daily = data['daily']
+        year, month, day = date[0], date[1], date[2]
+        min_temp = str(int(data_daily[i]['temp']['min'])) + ' C°'
+        max_temp = str(int(data_daily[i]['temp']['max'])) + ' C°'
+        description = data_daily[i]['weather'][0]['description']
+        print(data_daily[i])
+        day_number = days[calendar.weekday(year, month, day)]
+        template += day_number + ' ' * (11 - len(day_number) + 7) + min_temp + ' ' * (5 - len(min_temp) + 7) + max_temp + ' ' * (5 - len(max_temp) + 7) + description + '\n'
+
+    return data
 
 
 def get_weather_5day(town):

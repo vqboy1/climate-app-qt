@@ -21,6 +21,8 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
 
         self.btnGetWeatherDay.clicked.connect(self.build_graph)
 
+        self.btnGetWeatherWeek.clicked.connect(self.on_get_weather_7day_press)
+
     def build_graph(self):
         if self.layoutDayGraph.count() > 0:
             self.layoutDayGraph.removeWidget(self.plll)
@@ -71,6 +73,10 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
             except:
                 self.label_current_weather.setText("Такого города не существует. \n"
                                            "Попробуйте еще раз")
+
+    def on_get_weather_7day_press(self):
+        pass
+
 
 
 if __name__ == '__main__':
