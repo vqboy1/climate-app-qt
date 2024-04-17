@@ -19,7 +19,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
 
         self.btnGetCurrentWeather.clicked.connect(self.on_get_weather_press)
 
-        self.btnGetWeatherDay.clicked.connect(self.build_graph)
+        self.btnGetWeatherDay.clicked.connect(self.on_get_weather_1day_press)
 
         self.btnGetWeatherWeek.clicked.connect(self.on_get_weather_7day_press)
 
@@ -72,6 +72,21 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                 self.lineEditTownCurrent.setText('')
             except:
                 self.label_current_weather.setText("Что-то пошло не так. Попробуйте еще раз")
+
+
+    def on_get_weather_1day_press(self):
+        town = self.lineEditTownDay.text()
+        if len(town) == 0:
+            self.label_week.setText('Введите город')
+        else:
+            try:
+                template = get_weather_1day(town)
+                self.label_day.setText(template)
+                self.lineEditTownDay.setText('')
+            except:
+                self.label_day.setText("Что-то пошло не так. Попробуйте еще раз")
+
+
 
     def on_get_weather_7day_press(self):
         town = self.lineEditTownWeek.text()

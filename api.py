@@ -6,7 +6,12 @@ from geopy.geocoders import Nominatim
 
 import statistics as st
 
+from datetime import datetime
+
 API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
+
+geo_locator = Nominatim(user_agent='climate-app-qt')
+
 
 def get_weather(town):
 
@@ -55,7 +60,6 @@ def get_time(data):
 
 
 def get_weather_1day(town):
-    geo_locator = Nominatim(user_agent='climate-app-qt')
     location = geo_locator.geocode(town)
     lat = location.raw['lat']
     lon = location.raw['lon']
@@ -64,11 +68,38 @@ def get_weather_1day(town):
     response = requests.get(url)
     data = response.json()
 
-    return data
+    offset = data['timezone_offset']
+    times = []
+    dates = []
+    lst_temp = []
+    lst_temp_f = []
+    template = f'{town}\n\nВремя \t Температура \t Ощущается как \t Осадки \n\n'.expandtabs(12)
+
+    for i in range(1, 25):
+        data_h = data['hourly'][i]
+        temp, temp_f, desc = round(data_h['temp'], 1), round(data_h['feels_like'], 1), data_h['weather'][0]['description']
+        lst_temp.append(temp)
+        lst_temp_f.append(temp_f)
+        ts = data['hourly'][i]['dt'] + offset
+        hour = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S').split()[1][:5]
+        template += f'{hour} \t {str(temp)}         \t {str(temp_f)}          \t {desc}\n\n'.expandtabs(12)
+
+    mid_temp = int(st.mean(lst_temp))
+    mid_temp_f = int(st.mean(lst_temp_f))
+    diff_temp = str(round(max(lst_temp) - min(lst_temp), 1))
+    diff_temp_f = str(round(max(lst_temp_f) - min(lst_temp_f), 1))
+
+    template += f'\nСр арифм. \t {str(mid_temp)} C° \t \t {str(diff_temp)} C° \n\n'.expandtabs(12)
+    template += f'Размах   \t {str(mid_temp_f)} C° \t \t {str(diff_temp_f)} C°'.expandtabs(12)
+
+
+    return template
+
+
+print(get_weather_1day('london'))
 
 
 def get_weather_7day(town):
-    from datetime import datetime
 
     geo_locator = Nominatim(user_agent='climate-app-qt')
     location = geo_locator.geocode(town)
@@ -84,7 +115,7 @@ def get_weather_7day(town):
     offset = data['timezone_offset']
     dates = []
     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
-    template = town + '\n\n' + 'День недели           Мин. темп.   Макс. темп.   Осадки \n\n'
+    template = town + '\n\n' + 'День недели \t Мин. темп. \t Макс. темп. \t  Осадки \n\n'.expandtabs(12)
     lst_min = []
     lst_max = []
 
@@ -97,10 +128,10 @@ def get_weather_7day(town):
         data_daily = data['daily']
         year, month, day = date[0], date[1], date[2]
 
-        min_temp = int(data_daily[i]['temp']['min'])
+        min_temp = round(data_daily[i]['temp']['min'], 1)
         lst_min.append(min_temp)
 
-        max_temp = int(data_daily[i]['temp']['max'])
+        max_temp = round(data_daily[i]['temp']['max'], 1)
         lst_max.append(max_temp)
 
         min_temp = str(min_temp) + ' C°'
@@ -108,16 +139,16 @@ def get_weather_7day(town):
 
         description = data_daily[i]['weather'][0]['description']
         day_number = days[calendar.weekday(year, month, day)]
-        template += f'{day_number}       \t {min_temp} \t {max_temp} \t {description} \n\n'.expandtabs(12)
+        template += f'{day_number}       \t {min_temp} \t \t {max_temp}  \t \t  {description}\n\n'.expandtabs(12)
 
     template += '\n' * 2
     mid_min_temp = int(st.mean(lst_min))
     mid_max_temp = int(st.mean(lst_max))
-    diff_min = str(max(lst_min) - min(lst_min))
-    diff_max = str(max(lst_max) - min(lst_max))
+    diff_min = str(round(max(lst_min) - min(lst_min), 1))
+    diff_max = str(round(max(lst_max) - min(lst_max), 1))
 
-    template += 'Среднее арифм.' + ' ' * 4 + str(mid_min_temp) + ' C°' + ' ' * (5 - len(str(mid_min_temp)) + 6) + str(mid_max_temp) + ' C°' + '\n' * 2
-    template += 'Размах        ' + ' ' * 4 + str(diff_min) + ' C°' + ' ' * (5 - len(str(diff_min)) + 6) + str(diff_max) + ' C°'
+    template += f'Среднее арифм. \t {str(mid_min_temp)} C° \t \t {str(mid_max_temp)} C° \n\n'.expandtabs(12)
+    template += f'Размах         \t {str(diff_min)} C° \t \t {str(diff_max)} C°'.expandtabs(12)
 
     return template
 
@@ -152,4 +183,3 @@ def get_temp_5day(data):
         temp.append(round(data["list"][i]["main"]["temp"] - 273, 1))
 
     return temp
-
