@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:qlineargradient(spread:reflect, x1:0.483182, y1:0.807, x2:0.483, y2:0, stop:0 rgba(30, 105, 196, 255), stop:1 rgba(255, 205, 0, 255))</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTabWidget" name="tabWidget">
@@ -23,7 +26,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -38,6 +41,9 @@
            <height>40</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgba(192, 192, 192)</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -47,6 +53,14 @@
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item alignment="Qt::AlignHCenter">
            <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
+            </property>
             <property name="text">
              <string>Текущая погода</string>
             </property>
@@ -62,6 +76,9 @@
            <width>16777215</width>
            <height>50</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgba(192, 192, 192)</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -83,6 +100,9 @@
               <width>250</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
             </property>
             <property name="placeholderText">
              <string>Местоположение</string>
@@ -113,6 +133,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
+            </property>
             <property name="text">
              <string>Получить прогноз</string>
             </property>
@@ -125,6 +148,12 @@
               <width>100</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
             </property>
             <property name="text">
              <string>Включая все 
@@ -146,8 +175,14 @@
          <layout class="QVBoxLayout" name="verticalLayout_18">
           <item>
            <widget class="QLabel" name="label_current_weather">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="text">
              <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>../../Downloads/623522_nebo_oblaka_zakat_peyzaj_vid-s-aeroplana_3888x2592_www.Gde-Fon.com_.jpg</pixmap>
             </property>
            </widget>
           </item>
@@ -169,6 +204,9 @@
            <height>40</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgba(192, 192, 192)</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -178,6 +216,14 @@
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item alignment="Qt::AlignHCenter">
            <widget class="QLabel" name="label_2">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
+            </property>
             <property name="text">
              <string>Прогноз на день (ежечасно)</string>
             </property>
@@ -193,6 +239,9 @@
            <width>16777215</width>
            <height>50</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgba(192, 192, 192)</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -214,6 +263,9 @@
               <width>250</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
             </property>
             <property name="placeholderText">
              <string>Местоположение</string>
@@ -244,6 +296,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
+            </property>
             <property name="text">
              <string>Получить прогноз</string>
             </property>
@@ -266,11 +321,19 @@
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>10</height>
+              <height>20</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
+            </property>
             <property name="text">
-             <string>тут будет график</string>
+             <string>График</string>
             </property>
            </widget>
           </item>
@@ -295,6 +358,9 @@
            <height>40</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgba(192, 192, 192)</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -304,6 +370,11 @@
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <item alignment="Qt::AlignHCenter">
            <widget class="QLabel" name="label_3">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>Прогноз на неделю (ежедневно)</string>
             </property>
@@ -319,6 +390,9 @@
            <width>16777215</width>
            <height>50</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgba(192, 192, 192)</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -340,6 +414,9 @@
               <width>250</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
             </property>
             <property name="placeholderText">
              <string>Местоположение</string>
@@ -369,6 +446,9 @@
               <width>250</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
             </property>
             <property name="text">
              <string>Получить прогноз</string>
@@ -408,6 +488,9 @@
            <height>40</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgba(192, 192, 192)</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -417,6 +500,11 @@
          <layout class="QVBoxLayout" name="verticalLayout_12">
           <item alignment="Qt::AlignHCenter">
            <widget class="QLabel" name="label_4">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>Прогноз на неделю (ежечасно)</string>
             </property>
@@ -432,6 +520,9 @@
            <width>16777215</width>
            <height>50</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgba(192, 192, 192)</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -453,6 +544,9 @@
               <width>250</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
             </property>
             <property name="placeholderText">
              <string>Местоположение</string>
@@ -482,6 +576,9 @@
               <width>250</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color:rgba(192, 192, 192)</string>
             </property>
             <property name="text">
              <string>Получить прогноз</string>
@@ -521,6 +618,9 @@
            <height>40</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgba(192, 192, 192)</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -530,6 +630,11 @@
          <layout class="QVBoxLayout" name="verticalLayout_13">
           <item alignment="Qt::AlignHCenter">
            <widget class="QLabel" name="label_5">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>Интересная дополнительная информация</string>
             </property>
@@ -563,6 +668,9 @@
            <height>40</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgba(192, 192, 192)</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -572,6 +680,11 @@
          <layout class="QVBoxLayout" name="verticalLayout_15">
           <item alignment="Qt::AlignHCenter">
            <widget class="QLabel" name="label_6">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>Узнать исторические данные</string>
             </property>
