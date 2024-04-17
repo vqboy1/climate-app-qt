@@ -26,7 +26,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -134,7 +134,7 @@
              </size>
             </property>
             <property name="cursor">
-             <cursorShape>SplitHCursor</cursorShape>
+             <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
              <string notr="true">background-color:rgba(192, 192, 192)</string>
@@ -305,7 +305,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_9">
           <item alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="label_town_graph">
+           <widget class="QLabel" name="label_town_day">
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -321,7 +321,7 @@
              <string notr="true">background-color:rgba(192, 192, 192)</string>
             </property>
             <property name="text">
-             <string>День</string>
+             <string/>
             </property>
            </widget>
           </item>
