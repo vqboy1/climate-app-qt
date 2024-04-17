@@ -71,12 +71,19 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                                        f"(изменения только по кнопке)")
                 self.lineEditTownCurrent.setText('')
             except:
-                self.label_current_weather.setText("Такого города не существует. \n"
-                                           "Попробуйте еще раз")
+                self.label_current_weather.setText("Что-то пошло не так. Попробуйте еще раз")
 
     def on_get_weather_7day_press(self):
-        pass
-
+        town = self.lineEditTownWeek.text()
+        if len(town) == 0:
+            self.label_week.setText('Введите город')
+        else:
+            try:
+                template = get_weather_7day(town)
+                self.label_week.setText(template)
+                self.lineEditTownWeek.setText('')
+            except:
+                self.label_week.setText("Что-то пошло не так. Попробуйте еще раз")
 
 
 if __name__ == '__main__':

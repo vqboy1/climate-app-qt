@@ -25,7 +25,7 @@ class Ui_Form(object):
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.frame = QtWidgets.QFrame(parent=self.tab)
         self.frame.setMaximumSize(QtCore.QSize(16777215, 40))
-        self.frame.setStyleSheet("background-color:rgba(192, 192, 192)")
+        self.frame.setStyleSheet("background-color:rgb(192, 192, 192)")
         self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame.setObjectName("frame")
@@ -188,6 +188,10 @@ class Ui_Form(object):
         self.frame_6.setObjectName("frame_6")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.frame_6)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
+        self.label_week = QtWidgets.QLabel(parent=self.frame_6)
+        self.label_week.setText("")
+        self.label_week.setObjectName("label_week")
+        self.verticalLayout_10.addWidget(self.label_week)
         self.layoutWeekGraph = QtWidgets.QVBoxLayout()
         self.layoutWeekGraph.setObjectName("layoutWeekGraph")
         self.verticalLayout_10.addLayout(self.layoutWeekGraph)
@@ -298,7 +302,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.tabWidget)
 
         self.retranslateUi(Form)
-        self.tabWidget.setCurrentIndex(5)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):

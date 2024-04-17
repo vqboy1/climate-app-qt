@@ -26,7 +26,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -42,7 +42,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color:rgba(192, 192, 192)</string>
+          <string notr="true">background-color:rgb(192, 192, 192)</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -464,6 +464,13 @@
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_10">
+          <item>
+           <widget class="QLabel" name="label_week">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
           <item>
            <layout class="QVBoxLayout" name="layoutWeekGraph"/>
           </item>
