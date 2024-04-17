@@ -6,12 +6,12 @@ from geopy.geocoders import Nominatim
 
 import statistics as st
 
+API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
 
 def get_weather(town):
 
 
     # Замените YOUR_API_KEY на ваш API ключ OpenWeatherMap
-    API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
     CITY_NAME = town
 
     # Формируем URL для запроса
@@ -59,9 +59,12 @@ def get_weather_1day(town):
     location = geo_locator.geocode(town)
     lat = location.raw['lat']
     lon = location.raw['lon']
-    API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
-    CITY_NAME = town
-    pass
+    url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={API_KEY}" \
+          f"&exclude=minutely,current,daily,alerts&units=metric&lang=ru"
+    response = requests.get(url)
+    data = response.json()
+
+    return data
 
 
 def get_weather_7day(town):
@@ -72,7 +75,6 @@ def get_weather_7day(town):
     lat = location.raw['lat']
     lon = location.raw['lon']
 
-    API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
 
     url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={API_KEY}" \
           f"&exclude=minutely,current,hourly,alerts&units=metric&lang=ru"
@@ -82,7 +84,7 @@ def get_weather_7day(town):
     offset = data['timezone_offset']
     dates = []
     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
-    template = town + '\n\n' + 'День недели    Мин. темп.     Макс. темп.   Осадки \n\n'
+    template = town + '\n\n' + 'День недели           Мин. темп.   Макс. темп.   Осадки \n\n'
     lst_min = []
     lst_max = []
 
@@ -106,8 +108,7 @@ def get_weather_7day(town):
 
         description = data_daily[i]['weather'][0]['description']
         day_number = days[calendar.weekday(year, month, day)]
-        template += day_number + ' ' * (11 - len(day_number) + 7) + min_temp + ' ' * (5 - len(min_temp) + 4) * 2 + max_temp + ' ' * (
-                    5 - len(max_temp) + 7) + description + '\n' * 2
+        template += f'{day_number}       \t {min_temp} \t {max_temp} \t {description} \n\n'.expandtabs(12)
 
     template += '\n' * 2
     mid_min_temp = int(st.mean(lst_min))
@@ -123,7 +124,6 @@ def get_weather_7day(town):
 
 def get_weather_5day(town):
 
-    API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
     CITY_NAME = town
 
     url = f'https://api.openweathermap.org/data/2.5/forecast?q={CITY_NAME}&appid={API_KEY}'
