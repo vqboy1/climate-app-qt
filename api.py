@@ -73,7 +73,7 @@ def get_weather_7day(town):
     lon = location.raw['lon']
 
     API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
-    CITY_NAME = town
+
     url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={API_KEY}" \
           f"&exclude=minutely,current,hourly,alerts&units=metric&lang=ru"
     response = requests.get(url)
@@ -82,7 +82,7 @@ def get_weather_7day(town):
     offset = data['timezone_offset']
     dates = []
     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
-    template = 'День недели    Мин. темп.     Макс. темп.   Осадки \n\n'
+    template = town + '\n\n' + 'День недели    Мин. темп.     Макс. темп.   Осадки \n\n'
     lst_min = []
     lst_max = []
 
@@ -106,8 +106,7 @@ def get_weather_7day(town):
 
         description = data_daily[i]['weather'][0]['description']
         day_number = days[calendar.weekday(year, month, day)]
-        template += day_number + ' ' * (11 - len(day_number) + 7) + \
-                    min_temp + ' ' * (5 - len(min_temp) + 4) * 2 + max_temp + ' ' * (
+        template += day_number + ' ' * (11 - len(day_number) + 7) + min_temp + ' ' * (5 - len(min_temp) + 4) * 2 + max_temp + ' ' * (
                     5 - len(max_temp) + 7) + description + '\n' * 2
 
     template += '\n' * 2
@@ -120,6 +119,7 @@ def get_weather_7day(town):
     template += 'Размах        ' + ' ' * 4 + str(diff_min) + ' C°' + ' ' * (5 - len(str(diff_min)) + 6) + str(diff_max) + ' C°'
 
     return template
+
 
 def get_weather_5day(town):
 
