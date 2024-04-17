@@ -1,6 +1,9 @@
-def get_weather(town):
+import requests
 
-    import requests
+from geopy.geocoders import Nominatim
+
+
+def get_weather(town):
 
 
     # Замените YOUR_API_KEY на ваш API ключ OpenWeatherMap
@@ -47,19 +50,31 @@ def get_time(data):
     return [current_day, current_time]
 
 
+def get_weather_7day(town):
+
+    geo_locator = Nominatim(user_agent='climate-app-qt')
+    location = geo_locator.geocode(town)
+    lat = location.raw['lat']
+    lon = location.raw['lon']
+
+    API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
+    CITY_NAME = town
+    url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={API_KEY}&exclude=minutely,current,hourly,alerts&units=metric"
+    response = requests.get(url)
+    data = response.json()
+
+    return data["daily"]
+
+print(get_weather_7day('Moscow'))
+
+
 def get_weather_5day(town):
 
-    import requests
-
-
-    # Замените YOUR_API_KEY на ваш API ключ OpenWeatherMap
-    API_KEY = 'ce938e06adce48795531aa7e2b01dd6a'
+    API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
     CITY_NAME = town
 
-    # Формируем URL для запроса
     url = f'https://api.openweathermap.org/data/2.5/forecast?q={CITY_NAME}&appid={API_KEY}'
 
-    # Отправляем GET запрос и получаем данные о погоде
     response = requests.get(url)
     data = response.json()
 
@@ -84,3 +99,4 @@ def get_temp_5day(data):
         temp.append(round(data["list"][i]["main"]["temp"] - 273, 1))
 
     return temp
+

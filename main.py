@@ -65,7 +65,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                                        f"Сегодня у нас {clouds} \n"
                                        f"Облачность: {stats['clouds']['all']}% \n"
                                        f"Скорость ветра: {wind['speed']} м/с \n"
-                                       f"Давление: {prime['pressure']} Гектопаскалей \n"
+                                       f"Давление: {round(prime['pressure'] * 0.75, 1)} мм. рт. ст. \n"
                                        f"(изменения только по кнопке)")
                 self.lineEditTownCurrent.setText('')
             except:
