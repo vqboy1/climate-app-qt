@@ -25,8 +25,11 @@
        <height>377</height>
       </size>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color: white</string>
+     </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -102,7 +105,8 @@
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgba(192, 192, 192)</string>
+             <string notr="true">background-color:rgba(192, 192, 192);
+color: black</string>
             </property>
             <property name="placeholderText">
              <string>Местоположение</string>
@@ -137,7 +141,8 @@
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgba(192, 192, 192)</string>
+             <string notr="true">background-color:rgba(192, 192, 192);
+color: black</string>
             </property>
             <property name="text">
              <string>Получить прогноз</string>
@@ -164,7 +169,7 @@
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">color: black</string>
             </property>
             <property name="text">
              <string/>
@@ -250,7 +255,8 @@
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgba(192, 192, 192)</string>
+             <string notr="true">background-color:rgba(192, 192, 192);
+color: black</string>
             </property>
             <property name="placeholderText">
              <string>Местоположение</string>
@@ -285,7 +291,8 @@
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgba(192, 192, 192)</string>
+             <string notr="true">background-color:rgba(192, 192, 192);
+color: black</string>
             </property>
             <property name="text">
              <string>Получить прогноз</string>
@@ -335,8 +342,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>83</width>
-               <height>38</height>
+               <width>931</width>
+               <height>515</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -347,6 +354,9 @@
                   <family>Courier New</family>
                   <pointsize>12</pointsize>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: black</string>
                 </property>
                 <property name="text">
                  <string/>
@@ -433,7 +443,8 @@
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgba(192, 192, 192)</string>
+             <string notr="true">background-color:rgba(192, 192, 192);
+color: black</string>
             </property>
             <property name="placeholderText">
              <string>Местоположение</string>
@@ -468,7 +479,8 @@
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgba(192, 192, 192)</string>
+             <string notr="true">background-color:rgba(192, 192, 192);
+color: black</string>
             </property>
             <property name="text">
              <string>Получить прогноз</string>
@@ -493,6 +505,9 @@
              <font>
               <family>Courier New</family>
              </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: black</string>
             </property>
             <property name="text">
              <string/>
@@ -538,7 +553,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Прогноз на неделю (ежечасно)</string>
+             <string>Прогноз на 5 дней (по 3 часа)</string>
             </property>
            </widget>
           </item>
@@ -578,7 +593,8 @@
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgba(192, 192, 192)</string>
+             <string notr="true">background-color:rgba(192, 192, 192);
+color: black</string>
             </property>
             <property name="placeholderText">
              <string>Местоположение</string>
@@ -613,7 +629,8 @@
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgba(192, 192, 192)</string>
+             <string notr="true">background-color:rgba(192, 192, 192);
+color: black</string>
             </property>
             <property name="text">
              <string>Получить прогноз</string>
@@ -633,7 +650,42 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_19">
           <item>
-           <layout class="QVBoxLayout" name="layoutWeekHourlyGraph"/>
+           <widget class="QScrollArea" name="scrollArea_2">
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="scrollAreaWidgetContents">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>931</width>
+               <height>541</height>
+              </rect>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_21">
+              <item>
+               <widget class="QLabel" name="label_longhourly">
+                <property name="font">
+                 <font>
+                  <family>Monospace</family>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: black</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="layoutGraph"/>
+              </item>
+             </layout>
+            </widget>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -711,7 +763,8 @@
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgba(192, 192, 192)</string>
+             <string notr="true">background-color:rgba(192, 192, 192);
+color: black</string>
             </property>
             <property name="placeholderText">
              <string>Местоположение</string>
@@ -746,7 +799,8 @@
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgba(192, 192, 192)</string>
+             <string notr="true">background-color:rgba(192, 192, 192);
+color: black</string>
             </property>
             <property name="text">
              <string>Получить данные</string>
@@ -850,6 +904,15 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_20">
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>В разработке</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>

@@ -25,30 +25,25 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
 
         self.btnGetWeatherAirPollution.clicked.connect(self.on_get_air_pollution_press)
 
-    def on_get_air_pollution_press(self):
-        town = self.lineEditTownAirPollution.text()
+        self.btnGetWeatherWeekHourly.clicked.connect(self.on_get_weather_5day_press)
+
+    def on_get_weather_5day_press(self):
+        town = self.lineEditTownWeekHourly.text()
         if len(town) == 0:
-            self.label_air_pollution.setText('Введите город')
+            self.label_longhourly.setText('Введите город')
         else:
             try:
-                template = get_air_pollution_data(town)
-                self.label_air_pollution.setText(template)
-                self.label_8.setText(f'Атмосферное загрязнение (микрограмм на кубометр) - {town}')
+                template = get_label_weather_5day(town)
+                self.label_longhourly.setText(template)
                 self.lineEditTownWeek.setText('')
             except:
                 self.label_week.setText("Что-то пошло не так. Попробуйте еще раз")
-
-
-
     def build_graph(self):
-        if self.layoutDayGraph.count() > 0:
-            self.layoutDayGraph.removeWidget(self.plll)
+        if self.layoutGraph.count() > 0:
+            self.layoutGraph.removeWidget(self.plll)
         town = self.lineEditTownDay.text()
         if len(town) == 0 or not (graph_flag or bar_flag):
-            self.label_town_graph.setText("Произошла ошибка. Проверьте введеные данные.")
             return
-        self.label_town_graph.setText(town)
-        self.label_town_graph.setText(town)
         data = get_weather_5day(town)
         temperature = get_temp_5day(data)
         time = get_time_5day(data)
@@ -59,8 +54,25 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
         stringaxis = pg.AxisItem(orientation='bottom')
         stringaxis.setTicks([xdict.items()])
         self.plll.setAxisItems(axisItems={'bottom': stringaxis})
-        self.layoutDayGraph.addWidget(self.plll)
+        self.layoutGraph.addWidget(self.plll)
         self.lineEditTownDay.setText("")
+
+    def on_get_air_pollution_press(self):
+        town = self.lineEditTownAirPollution.text()
+        if len(town) == 0:
+            self.label_air_pollution.setText('Введите город')
+        else:
+            try:
+                template = get_air_pollution_data(town)
+                self.label_air_pollution.setText(template)
+                self.label_8.setText(f'Атмосферное загрязнение (микрограмм на кубометр) - {town}')
+                self.lineEditTownWeek.setText('')
+
+            except:
+                self.label_week.setText("Что-то пошло не так. Попробуйте еще раз")
+
+
+
 
     def on_get_weather_press(self):
         town = self.lineEditTownCurrent.text()

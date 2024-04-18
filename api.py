@@ -243,6 +243,21 @@ def get_weather_5day(town):
     return data
 
 
+def get_label_weather_5day(town):
+    CITY_NAME = town
+
+    url = f'https://api.openweathermap.org/data/2.5/forecast?q={CITY_NAME}&appid={API_KEY}&lang=ru&units=metric'
+
+    response = requests.get(url)
+    data = response.json()['list']
+    template = 'Дата и время \t Температура \t Ощущается как \t Осадки \n'.expandtabs(12)
+    for i in range(len(data)):
+        template += (f'{data[i]["dt_txt"]} \t {str(data[i]["main"]["temp"]) + " C°"} \t\t {str(data[i]["main"]["feels_like"]) + " C°"}'
+                     f' \t \t{str(data[i]["weather"][0]["description"])}\n').expandtabs(12)
+
+    return template
+
+
 def get_time_5day(data):
 
     date = []
