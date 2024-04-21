@@ -14,8 +14,6 @@ geo_locator = Nominatim(user_agent='climate-app-qt')
 
 
 def get_weather(town):
-
-
     # Замените YOUR_API_KEY на ваш API ключ OpenWeatherMap
     CITY_NAME = town
 
@@ -31,11 +29,7 @@ def get_weather(town):
     return data
 
 
-
-
-
 def get_time(data):
-
     import pytz
     from datetime import datetime
     from timezonefinder import TimezoneFinder
@@ -70,7 +64,8 @@ def get_air_pollution_data(town):
     response = requests.get(url)
     data = response.json()['list'][0]['components']
     template = '\n\n SO2 \t NO2 \t PM10 \t PM2.5 \t O₃ \t CO \n\n'.expandtabs(10)
-    template += f'{data["so2"]} \t {data["no2"]} \t {data["pm10"]} \t {data["pm2_5"]} \t {data["o3"]} \t {data["co"]} \n\n'.expandtabs(10)
+    template += f'{data["so2"]} \t {data["no2"]} \t {data["pm10"]} \t {data["pm2_5"]} \t {data["o3"]} \t {data["co"]} \n\n'.expandtabs(
+        10)
 
     if data["so2"] <= 20:
         template += f'Идеальное соотношение SO2\n\n'
@@ -151,15 +146,14 @@ def get_weather_1day(town):
     data = response.json()
 
     offset = data['timezone_offset']
-    times = []
-    dates = []
     lst_temp = []
     lst_temp_f = []
     template = f'{town}\n\nВремя \t Температура \t Ощущается как \t Осадки \n\n'.expandtabs(12)
 
     for i in range(1, 25):
         data_h = data['hourly'][i]
-        temp, temp_f, desc = round(data_h['temp'], 1), round(data_h['feels_like'], 1), data_h['weather'][0]['description']
+        temp, temp_f, desc = round(data_h['temp'], 1), round(data_h['feels_like'], 1), data_h['weather'][0][
+            'description']
         lst_temp.append(temp)
         lst_temp_f.append(temp_f)
         ts = data['hourly'][i]['dt'] + offset
@@ -178,12 +172,10 @@ def get_weather_1day(town):
 
 
 def get_weather_7day(town):
-
     geo_locator = Nominatim(user_agent='climate-app-qt')
     location = geo_locator.geocode(town)
     lat = location.raw['lat']
     lon = location.raw['lon']
-
 
     url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={API_KEY}" \
           f"&exclude=minutely,current,hourly,alerts&units=metric&lang=ru"
@@ -193,7 +185,7 @@ def get_weather_7day(town):
     offset = data['timezone_offset']
     dates = []
     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
-    template = town + '\n\n' + 'День недели \t Мин. темп. \t Макс. темп. \t  Осадки \n\n'.expandtabs(12)
+    template = 'День недели \t Мин. темп. \t Макс. темп. \t  Осадки \n\n'.expandtabs(12)
     lst_min = []
     lst_max = []
 
@@ -232,7 +224,6 @@ def get_weather_7day(town):
 
 
 def get_weather_5day(town):
-
     CITY_NAME = town
 
     url = f'https://api.openweathermap.org/data/2.5/forecast?q={CITY_NAME}&appid={API_KEY}'
@@ -250,16 +241,16 @@ def get_label_weather_5day(town):
 
     response = requests.get(url)
     data = response.json()['list']
-    template = 'Дата и время \t Температура \t Ощущается как \t Осадки \n'.expandtabs(12)
+    template = 'Дата и время \t Температура \t Ощущается как \tОсадки \n\n'.expandtabs(12)
     for i in range(len(data)):
-        template += (f'{data[i]["dt_txt"]} \t {str(data[i]["main"]["temp"]) + " C°"} \t\t {str(data[i]["main"]["feels_like"]) + " C°"}'
-                     f' \t \t{str(data[i]["weather"][0]["description"])}\n').expandtabs(12)
+        template += (
+            f'{data[i]["dt_txt"][5:-3]} \t {str(data[i]["main"]["temp"]) + " C°"} \t\t {str(data[i]["main"]["feels_like"]) + " C°"}' 
+            f' \t \t{str(data[i]["weather"][0]["description"])}\n\n').expandtabs(12)
 
     return template
 
 
 def get_time_5day(data):
-
     date = []
 
     for i in range(len(data["list"])):
@@ -269,7 +260,6 @@ def get_time_5day(data):
 
 
 def get_temp_5day(data):
-
     temp = []
 
     for i in range(len(data["list"])):
