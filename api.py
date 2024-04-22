@@ -72,8 +72,8 @@ def get_air_pollution_data(town):
     response = requests.get(url)
     data = response.json()['list'][0]['components']
     template = '\n\n SO2 \t NO2 \t PM10 \t PM2.5 \t O₃ \t CO \n\n'.expandtabs(10)
-    template += f'{data["so2"]} \t {data["no2"]} \t {data["pm10"]} \t {data["pm2_5"]} \t {data["o3"]} \t {data["co"]} \n\n'.expandtabs(
-        10)
+    template += f'{data["so2"]} \t {data["no2"]} \t {data["pm10"]} ' \
+                f'\t {data["pm2_5"]} \t {data["o3"]} \t {data["co"]} \n\n'.expandtabs(10)
 
     if data["so2"] <= 20:
         template += f'Идеальное соотношение SO2\n\n'
@@ -139,7 +139,7 @@ def get_air_pollution_data(town):
     elif 12400 <= data["co"] < 15400:
         template += f'Значительное превышение CO на {round(data["co"] - 4400, 2)} мкг/м3 \n\n'
     else:
-        template += f'Опасное количество CO!\n'
+        template += f'Опасное количество CO!\n\n'
 
     return template
 

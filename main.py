@@ -44,7 +44,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                 try:
                     template = get_label_weather_5day(town)
                     self.label_longhourly.setText(template)
-                except KeyError:
+                except:
                     self.label_longhourly.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
             self.label_longhourly.setText("")
@@ -52,7 +52,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
     # def build_graph(self):
     #     if self.layoutGraph.count() > 0:
     #         self.layoutGraph.removeWidget(self.plll)
-    #     town = self.lineEditTownDay.text()
+    #     town = self.lineEditTown.text()
     #     if len(town) == 0 or not (graph_flag or bar_flag):
     #         return
     #     data = get_weather_5day(town)
@@ -66,7 +66,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
     #     stringaxis.setTicks([xdict.items()])
     #     self.plll.setAxisItems(axisItems={'bottom': stringaxis})
     #     self.layoutGraph.addWidget(self.plll)
-    #     self.lineEditTownDay.setText("")
+    #     self.lineEditTown.setText("")
 
     def on_get_air_pollution_press(self):
         town = self.lineEditTownAirPollution.text()
@@ -78,7 +78,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                 self.label_air_pollution.setText(template)
                 self.label_8.setText(f'Атмосферное загрязнение (микрограмм на кубометр) - {town}')
 
-            except KeyError:
+            except:
                 self.label_week.setText("Что-то пошло не так. Попробуйте еще раз")
 
     def on_get_weather_press(self):
@@ -107,7 +107,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                                                        f"Направление ветра: {degToCompass(wind['deg'])} \n"
                                                        f"Давление: {round(prime['pressure'] * 0.75, 1)} мм. рт. ст. \n"
                                                        f"(изменения только по кнопке)")
-                except KeyError:
+                except:
                     self.label_current_weather.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
             self.label_current_weather.setText("")
@@ -121,7 +121,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                 try:
                     template = get_weather_1day(town)
                     self.label_day.setText(template)
-                except KeyError:
+                except:
                     self.label_day.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
             self.label_day.setText("")
@@ -135,7 +135,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                 try:
                     template = get_weather_7day(town)
                     self.label_week.setText(template)
-                except KeyError:
+                except:
                     self.label_week.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
             self.label_week.setText("")
