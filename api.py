@@ -148,19 +148,20 @@ def get_weather_1day(town):
     offset = data['timezone_offset']
     lst_temp = []
     lst_temp_f = []
-    template = f'Время \t Температура \t Ощущается \t Влажность \t Осадки\n\n'.expandtabs(16)
+    template = f'Время \t Температура \t Ощущается \t Влажность \t Ветер \t Осадки\n\n'.expandtabs(16)
 
     for i in range(1, 25):
         data_h = data['hourly'][i]
         temp = float(round(data_h['temp'], 1))
-        temp_f = float(round(data_h['feels_like']))
+        temp_f = float(round(data_h['feels_like'], 1))
         desc = data_h['weather'][0]['description']
         humidity = data_h['humidity']
+        wind = str(data_h['wind_speed']) + ' м/с'
         lst_temp.append(temp)
         lst_temp_f.append(temp_f)
         ts = data['hourly'][i]['dt'] + offset
         hour = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S').split()[1][:5]
-        template += f'{hour} \t {str(temp) + celc} \t {str(temp_f) + celc} \t {str(humidity) + "%"} \t {desc}\n\n'.expandtabs(16)
+        template += f'{hour} \t {str(temp) + celc} \t {str(temp_f) + celc} \t {str(humidity) + "%"} \t {wind} \t {desc}\n\n'.expandtabs(16)
 
     mid_temp = int(st.mean(lst_temp))
     mid_temp_f = int(st.mean(lst_temp_f))
@@ -174,7 +175,6 @@ def get_weather_1day(town):
 
 
 def get_weather_7day(town):
-    geo_locator = Nominatim(user_agent='climate-app-qt')
     location = geo_locator.geocode(town)
     lat = location.raw['lat']
     lon = location.raw['lon']
@@ -187,7 +187,7 @@ def get_weather_7day(town):
     offset = data['timezone_offset']
     dates = []
     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
-    template = 'День недели \t Мин. темп. \t Макс. темп. \t Влажность \t\t  Осадки \n\n'.expandtabs(12)
+    template = 'День недели \t Мин. темп. \t Макс. темп. \t Влажность \t\t Ветер \t\t  Осадки \n\n'.expandtabs(12)
     lst_min = []
     lst_max = []
 
@@ -201,6 +201,7 @@ def get_weather_7day(town):
         year, month, day = date[0], date[1], date[2]
 
         humidity = data_daily[i]['humidity']
+        wind = str(data_daily[i]['wind_speed']) + ' м/с'
 
         min_temp = round(data_daily[i]['temp']['min'], 1)
         lst_min.append(min_temp)
@@ -213,7 +214,7 @@ def get_weather_7day(town):
 
         description = data_daily[i]['weather'][0]['description']
         day_number = days[calendar.weekday(year, month, day)]
-        template += f'{day_number}       \t {min_temp} \t \t {max_temp}  \t \t {str(humidity) + "%"} \t \t  {description}\n\n'.expandtabs(12)
+        template += f'{day_number}       \t {min_temp} \t \t {max_temp}  \t \t {str(humidity) + "%"} \t \t {wind} \t \t  {description}\n\n'.expandtabs(12)
 
     template += '\n' * 2
     mid_min_temp = int(st.mean(lst_min))
@@ -245,15 +246,16 @@ def get_label_weather_5day(town):
 
     response = requests.get(url)
     data = response.json()['list']
-    template = 'Дата и время \t Температура \t Ощущается как \t Влажность \t\tОсадки \n\n'.expandtabs(12)
+    template = 'Дата и время \t Температура \t Ощущается как \t Влажность \t\t Ветер \t\tОсадки \n\n'.expandtabs(12)
     for i in range(len(data)):
         time = data[i]["dt_txt"][5:-3]
         temp = str(data[i]["main"]["temp"])
         temp_f = str(data[i]["main"]["feels_like"])
         desc = str(data[i]["weather"][0]["description"])
         humidity = str(data[i]['main']["humidity"]) + '%'
+        wind = str(data[i]["wind"]["speed"]) + ' м/с'
         template += (
-            f'{time} \t {temp + " C°"} \t\t {temp_f + " C°"} \t \t {humidity} \t\t{desc}\n\n').expandtabs(12)
+            f'{time} \t {temp + " C°"} \t\t {temp_f + " C°"} \t \t {humidity} \t \t {wind} \t\t{desc}\n\n').expandtabs(12)
 
     return template
 
