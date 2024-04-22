@@ -13,6 +13,25 @@ API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
 geo_locator = Nominatim(user_agent='climate-app-qt')
 
 
+def emoji(ID):
+    ID = str(ID)
+    if ID.startswith('2'):
+        return '🌩 '
+    elif ID.startswith('3'):
+        return '🌧 '
+    elif ID.startswith('5'):
+        return '🌧 '
+    elif ID.startswith('6'):
+        return '❄️ '
+    elif ID.startswith('7'):
+        return '🌫 '
+    elif ID == '800':
+        return '☀️ '
+    elif ID.startswith('80'):
+        return '☁️ '
+    return ''
+
+
 def degToCompass(num):
     val = int((num / 22.5) + .5)
     arr = ["↓С", "↙С-СВ", " ↙СВ", "↙В-СВ", "←В", "↖В-ЮВ", "↖ЮВ", "↖Ю-ЮВ",
@@ -163,6 +182,7 @@ def get_weather_1day(town):
         temp = float(round(data_h['temp'], 1))
         temp_f = float(round(data_h['feels_like'], 1))
         desc = data_h['weather'][0]['description']
+        ID = data_h['weather'][0]['id']
         humidity = data_h['humidity']
         wind = str(data_h['wind_speed']) + ' м/с'
         wind_dir = degToCompass(data_h['wind_deg'])
@@ -171,15 +191,15 @@ def get_weather_1day(town):
         ts = data['hourly'][i]['dt'] + offset
         hour = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S').split()[1][:5]
         template += f'{hour} \t {str(temp) + celc} \t {str(temp_f) + celc} ' \
-                    f'\t {str(humidity) + "%"} \t {wind} \t {wind_dir} \t {desc}\n\n'.expandtabs(16)
+                    f'\t {str(humidity) + "%"} \t {wind} \t {wind_dir} \t {emoji(ID) + desc}\n\n'.expandtabs(16)
 
     mid_temp = int(st.mean(lst_temp))
     mid_temp_f = int(st.mean(lst_temp_f))
     diff_temp = str(round(max(lst_temp) - min(lst_temp), 1))
     diff_temp_f = str(round(max(lst_temp_f) - min(lst_temp_f), 1))
 
-    template += f'\nСр арифм. \t {str(mid_temp)} C° \t \t {str(diff_temp)} C° \n\n'.expandtabs(12)
-    template += f'Размах   \t {str(mid_temp_f)} C° \t \t {str(diff_temp_f)} C°'.expandtabs(12)
+    template += f'\nСр арифм. \t {str(mid_temp)} C° \t {str(diff_temp)} C° \n\n'.expandtabs(16)
+    template += f'Размах   \t {str(mid_temp_f)} C° \t {str(diff_temp_f)} C°'.expandtabs(16)
 
     return template
 
@@ -225,9 +245,10 @@ def get_weather_7day(town):
         max_temp = str(max_temp) + ' C°'
 
         description = data_daily[i]['weather'][0]['description']
+        ID = data_daily[i]['weather'][0]['id']
         day_number = days[calendar.weekday(year, month, day)]
         template += f'{day_number} \t {min_temp} \t {max_temp}  \t {str(humidity) + "%"}' \
-                    f' \t {wind} \t {wind_dir} \t  {description}\n\n'.expandtabs(16)
+                    f' \t {wind} \t {wind_dir} \t  {emoji(ID) + description}\n\n'.expandtabs(16)
 
     template += '\n' * 2
     mid_min_temp = int(st.mean(lst_min))
@@ -266,13 +287,14 @@ def get_label_weather_5day(town):
         temp = str(data[i]["main"]["temp"])
         temp_f = str(data[i]["main"]["feels_like"])
         desc = str(data[i]["weather"][0]["description"])
+        ID = str(data[i]["weather"][0]["id"])
         humidity = str(data[i]['main']["humidity"]) + '%'
         wind = str(data[i]["wind"]["speed"]) + ' м/с'
         wind_dir = degToCompass(data[i]['wind']['deg'])
 
         template += (
             f'{time} \t {temp + " C°"} \t {temp_f + " C°"} \t {humidity} \t '
-            f'{wind} \t {wind_dir} \t {desc}\n\n').expandtabs(16)
+            f'{wind} \t {wind_dir} \t {emoji(ID) + desc}\n\n').expandtabs(16)
 
     return template
 
