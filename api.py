@@ -13,7 +13,7 @@ API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
 geo_locator = Nominatim(user_agent='climate-app-qt')
 
 
-def emoji(ID):
+def emoji(ID, icon):
     ID = str(ID)
     if ID.startswith('2'):
         return '🌩 '
@@ -25,8 +25,10 @@ def emoji(ID):
         return '❄️ '
     elif ID.startswith('7'):
         return '🌫 '
-    elif ID == '800':
+    elif ID == '800' and icon[-1] == 'd':
         return '☀️ '
+    elif ID == '800' and icon[-1] == 'n':
+        return '🌙 '
     elif ID.startswith('80'):
         return '☁️ '
     return ''
@@ -183,6 +185,7 @@ def get_weather_1day(town):
         temp_f = float(round(data_h['feels_like'], 1))
         desc = data_h['weather'][0]['description']
         ID = data_h['weather'][0]['id']
+        icon = data_h['weather'][0]['icon']
         humidity = data_h['humidity']
         wind = str(data_h['wind_speed']) + ' м/с'
         wind_dir = degToCompass(data_h['wind_deg'])
@@ -191,7 +194,7 @@ def get_weather_1day(town):
         ts = data['hourly'][i]['dt'] + offset
         hour = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S').split()[1][:5]
         template += f'{hour} \t {str(temp) + celc} \t {str(temp_f) + celc} ' \
-                    f'\t {str(humidity) + "%"} \t {wind} \t {wind_dir} \t {emoji(ID) + desc}\n\n'.expandtabs(16)
+                    f'\t {str(humidity) + "%"} \t {wind} \t {wind_dir} \t {emoji(ID, icon) + desc}\n\n'.expandtabs(16)
 
     mid_temp = int(st.mean(lst_temp))
     mid_temp_f = int(st.mean(lst_temp_f))
@@ -246,9 +249,10 @@ def get_weather_7day(town):
 
         description = data_daily[i]['weather'][0]['description']
         ID = data_daily[i]['weather'][0]['id']
+        icon = data_daily[i]['weather'][0]['icon']
         day_number = days[calendar.weekday(year, month, day)]
         template += f'{day_number} \t {min_temp} \t {max_temp}  \t {str(humidity) + "%"}' \
-                    f' \t {wind} \t {wind_dir} \t  {emoji(ID) + description}\n\n'.expandtabs(16)
+                    f' \t {wind} \t {wind_dir} \t  {emoji(ID, icon) + description}\n\n'.expandtabs(16)
 
     template += '\n' * 2
     mid_min_temp = int(st.mean(lst_min))
@@ -288,13 +292,15 @@ def get_label_weather_5day(town):
         temp_f = str(data[i]["main"]["feels_like"])
         desc = str(data[i]["weather"][0]["description"])
         ID = str(data[i]["weather"][0]["id"])
+        icon = str(data[i]["weather"][0]["icon"])
         humidity = str(data[i]['main']["humidity"]) + '%'
         wind = str(data[i]["wind"]["speed"]) + ' м/с'
         wind_dir = degToCompass(data[i]['wind']['deg'])
+        print(icon)
 
         template += (
             f'{time} \t {temp + " C°"} \t {temp_f + " C°"} \t {humidity} \t '
-            f'{wind} \t {wind_dir} \t {emoji(ID) + desc}\n\n').expandtabs(16)
+            f'{wind} \t {wind_dir} \t {emoji(ID, icon) + desc}\n\n').expandtabs(16)
 
     return template
 
