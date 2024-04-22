@@ -49,14 +49,29 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                     self.label_longhourly.setText(template)
                     if self.checkBoxMainToGraph.isChecked():
                         self.tabWidget.setCurrentIndex(1)
+                    if self.checkBoxEnableGraph.isChecked():
+                        if self.layoutGraph5day.count() > 0:
+                            self.layoutGraph5day.removeWidget(self.plll)
+                        temperature = get_temp_5day(data)
+                        time = get_time_5day(data)
+                        xtime = [i for i in range(len(temperature))]
+                        xdict = dict(enumerate(time))
+                        self.plll = pg.plot(title="Погода")
+                        self.plll.plot(xtime, temperature)
+                        stringaxis = pg.AxisItem(orientation='bottom')
+                        stringaxis.setTicks([xdict.items()])
+                        self.plll.setAxisItems(axisItems={'bottom': stringaxis})
+                        self.plll.showGrid(x=True, y=True)
+                        self.layoutGraph5day.addWidget(self.plll)
+
                 except:
                     self.label_longhourly.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
             self.label_longhourly.setText("")
 
     # def build_graph(self):
-    #     if self.layoutGraph.count() > 0:
-    #         self.layoutGraph.removeWidget(self.plll)
+    #     if self.layoutGraph5day.count() > 0:
+    #         self.layoutGraph5day.removeWidget(self.plll)
     #     town = self.lineEditTown.text()
     #     data = get_weather_5day(town)
     #     temperature = get_temp_5day(data)
@@ -68,7 +83,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
     #     stringaxis = pg.AxisItem(orientation='bottom')
     #     stringaxis.setTicks([xdict.items()])
     #     self.plll.setAxisItems(axisItems={'bottom': stringaxis})
-    #     self.layoutGraph.addWidget(self.plll)
+    #     self.layoutGraph5day.addWidget(self.plll)
 
     def on_get_air_pollution_press(self):
         town = self.lineEditTownAirPollution.text()

@@ -372,8 +372,8 @@ def get_label_weather_5day(data):
 def get_time_5day(data):
     date = []
 
-    for i in range(len(data["list"])):
-        date.append(f'{data["list"][i]["dt_txt"][5:-6]}ч \n'.replace(' ', '\n'))
+    for i in range(len(data)):
+        date.append(f'{data[i]["dt_txt"][8:10]}д \n {data[i]["dt_txt"][11:13]}ч\n')
 
     return date
 
@@ -381,7 +381,7 @@ def get_time_5day(data):
 def get_temp_5day(data):
     temp = []
 
-    for i in range(len(data["list"])):
-        temp.append(round(data["list"][i]["main"]["temp"] - 273, 1))
+    for i in range(len(data)):
+        temp.append(round(data[i]["main"]["temp"], 1))
 
     return temp
