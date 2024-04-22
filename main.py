@@ -95,6 +95,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                     prime = stats['main']
                     max_temp = prime['temp_max']
                     min_temp = prime['temp_min']
+
                     self.label_current_weather.setText(f"Дата: {day_time[0]} \n"
                                                        f"Текущее время: {day_time[1]} \n \n"
                                                        f"Влажность: {prime['humidity']}% \n"
@@ -103,6 +104,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                                                        f"Осадки: {clouds} \n"
                                                        f"Облачность: {stats['clouds']['all']}% \n"
                                                        f"Скорость ветра: {wind['speed']} м/с \n"
+                                                       f"Направление ветра: {degToCompass(wind['deg'])} \n"
                                                        f"Давление: {round(prime['pressure'] * 0.75, 1)} мм. рт. ст. \n"
                                                        f"(изменения только по кнопке)")
                 except KeyError:
