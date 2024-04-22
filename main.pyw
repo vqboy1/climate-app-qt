@@ -49,6 +49,7 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                     self.label_longhourly.setText(template)
                     if self.checkBoxMainToGraph.isChecked():
                         self.tabWidget.setCurrentIndex(1)
+                    #     graph start
                     if self.checkBoxEnableGraph.isChecked():
                         if self.layoutGraph5day.count() > 0:
                             self.layoutGraph5day.removeWidget(self.plll)
@@ -143,6 +144,21 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                     self.label_day.setText(template)
                     if self.checkBoxMainToGraph.isChecked():
                         self.tabWidget.setCurrentIndex(1)
+                        # graph start
+                    if self.checkBoxEnableGraph.isChecked():
+                        if self.layoutGraphDay.count() > 0:
+                            self.layoutGraphDay.removeWidget(self.plll)
+                        temperature = get_temp_1day(data)
+                        time = get_time_1day(data)
+                        xtime = [i for i in range(len(temperature))]
+                        xdict = dict(enumerate(time))
+                        self.plll = pg.plot(title="Погода")
+                        self.plll.plot(xtime, temperature)
+                        stringaxis = pg.AxisItem(orientation='bottom')
+                        stringaxis.setTicks([xdict.items()])
+                        self.plll.setAxisItems(axisItems={'bottom': stringaxis})
+                        self.plll.showGrid(x=True, y=True)
+                        self.layoutGraphDay.addWidget(self.plll)
                 except:
                     self.label_day.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
@@ -160,6 +176,21 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                     self.label_week.setText(template)
                     if self.checkBoxMainToGraph.isChecked():
                         self.tabWidget.setCurrentIndex(1)
+                    #     graph start
+                    if self.checkBoxEnableGraph.isChecked():
+                        if self.layoutGraphWeek.count() > 0:
+                            self.layoutGraphWeek.removeWidget(self.plll)
+                        temperature = get_temp_7day(data)
+                        time = get_time_7day(data)
+                        xtime = [i for i in range(len(temperature))]
+                        xdict = dict(enumerate(time))
+                        self.plll = pg.plot(title="Погода")
+                        self.plll.plot(xtime, temperature)
+                        stringaxis = pg.AxisItem(orientation='bottom')
+                        stringaxis.setTicks([xdict.items()])
+                        self.plll.setAxisItems(axisItems={'bottom': stringaxis})
+                        self.plll.showGrid(x=True, y=True)
+                        self.layoutGraphDay.addWidget(self.plll)
                 except:
                     self.label_week.setText("Что-то пошло не так. Попробуйте еще раз")
         else:

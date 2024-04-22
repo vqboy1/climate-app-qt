@@ -224,7 +224,7 @@ def get_label_weather_1day(data):
 
     template += f'Размах   \t {str(mid_temp_f)} C° \t {str(diff_temp_f)} C° \t' \
                 f' {diff_humid}% \t {diff_wind} м/с'.expandtabs(16)
-
+    print(data)
     return template
 
 
@@ -385,3 +385,64 @@ def get_temp_5day(data):
         temp.append(round(data[i]["main"]["temp"], 1))
 
     return temp
+
+
+def get_time_1day(data):
+    date = []
+    offset = data['timezone_offset']
+
+    for i in range(1, 25):
+        ts = data['hourly'][i]['dt'] + offset
+        hour = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S').split()[1][:5][:2] + 'ч'
+        date.append(hour)
+    return date
+
+
+def get_temp_1day(data):
+    lst_temp = []
+    # lst_temp_f = []
+    for i in range(1, 25):
+        data_h = data['hourly'][i]
+        temp = round(data_h['temp'], 1)
+        # temp_f = int(round(data_h['feels_like']))
+
+        lst_temp.append(temp)
+        # lst_temp_f.append(temp_f)
+    return lst_temp
+
+
+def get_time_7day(data):
+    offset = data['timezone_offset']
+    dates = []
+    time = []
+    days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
+
+    for i in range(7):
+        ts = data['daily'][i]['dt'] + offset
+        dates.append(datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S').split()[0])
+
+    for i in range(7):
+        date = [int(i) for i in dates[i].split('-')]
+        year, month, day = date[0], date[1], date[2]
+
+        day_number = days[calendar.weekday(year, month, day)]
+        time.append(day_number)
+
+    return time
+
+
+def get_temp_7day(data):
+    lst_min = []
+    lst_max = []
+    lst_temps = []
+    for i in range(7):
+        data_daily = data['daily']
+
+        min_temp = round(data_daily[i]['temp']['min'], 1)
+        lst_min.append(min_temp)
+
+        max_temp = round(data_daily[i]['temp']['max'], 1)
+        lst_max.append(max_temp)
+        lst_temps.append(round(((min_temp + max_temp) / 2), 1))
+
+    return lst_temps
