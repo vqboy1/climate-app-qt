@@ -231,8 +231,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>962</width>
-            <height>622</height>
+            <width>272</width>
+            <height>567</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -589,79 +589,35 @@
         </widget>
        </item>
        <item>
-        <widget class="QScrollArea" name="scrollArea_2">
-         <property name="widgetResizable">
-          <bool>true</bool>
+        <widget class="QTabWidget" name="tabWidget_2">
+         <property name="currentIndex">
+          <number>0</number>
          </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_2">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>962</width>
-            <height>639</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_15">
-           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-            <widget class="QLabel" name="label">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>День</string>
-             </property>
-            </widget>
-           </item>
+         <widget class="QWidget" name="tab_4">
+          <attribute name="title">
+           <string>День</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_12">
            <item>
             <layout class="QVBoxLayout" name="layoutGraphDay"/>
            </item>
-           <item>
-            <widget class="Line" name="line_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-            <widget class="QLabel" name="label_10">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Неделя</string>
-             </property>
-            </widget>
-           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_5">
+          <attribute name="title">
+           <string>Неделя</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_13">
            <item>
             <layout class="QVBoxLayout" name="layoutGraphWeek"/>
            </item>
-           <item>
-            <widget class="Line" name="line_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-            <widget class="QLabel" name="label_11">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Долгосрочно</string>
-             </property>
-            </widget>
-           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_6">
+          <attribute name="title">
+           <string>Долгосрочно</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_14">
            <item>
             <layout class="QVBoxLayout" name="layoutGraph5day"/>
            </item>

@@ -147,18 +147,18 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                         # graph start
                     if self.checkBoxEnableGraph.isChecked():
                         if self.layoutGraphDay.count() > 0:
-                            self.layoutGraphDay.removeWidget(self.plll)
+                            self.layoutGraphDay.removeWidget(self.plll_1)
                         temperature = get_temp_1day(data)
                         time = get_time_1day(data)
                         xtime = [i for i in range(len(temperature))]
                         xdict = dict(enumerate(time))
-                        self.plll = pg.plot(title="Погода")
-                        self.plll.plot(xtime, temperature)
+                        self.plll_1 = pg.plot(title="Погода")
+                        self.plll_1.plot(xtime, temperature)
                         stringaxis = pg.AxisItem(orientation='bottom')
                         stringaxis.setTicks([xdict.items()])
-                        self.plll.setAxisItems(axisItems={'bottom': stringaxis})
-                        self.plll.showGrid(x=True, y=True)
-                        self.layoutGraphDay.addWidget(self.plll)
+                        self.plll_1.setAxisItems(axisItems={'bottom': stringaxis})
+                        self.plll_1.showGrid(x=True, y=True)
+                        self.layoutGraphDay.addWidget(self.plll_1)
                 except:
                     self.label_day.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
@@ -179,18 +179,18 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                     #     graph start
                     if self.checkBoxEnableGraph.isChecked():
                         if self.layoutGraphWeek.count() > 0:
-                            self.layoutGraphWeek.removeWidget(self.plll)
+                            self.layoutGraphWeek.removeWidget(self.plll_2)
                         temperature = get_temp_7day(data)
                         time = get_time_7day(data)
                         xtime = [i for i in range(len(temperature))]
                         xdict = dict(enumerate(time))
-                        self.plll = pg.plot(title="Погода")
-                        self.plll.plot(xtime, temperature)
+                        self.plll_2 = pg.plot(title="Погода")
+                        self.plll_2.plot(xtime, temperature)
                         stringaxis = pg.AxisItem(orientation='bottom')
                         stringaxis.setTicks([xdict.items()])
-                        self.plll.setAxisItems(axisItems={'bottom': stringaxis})
-                        self.plll.showGrid(x=True, y=True)
-                        self.layoutGraphDay.addWidget(self.plll)
+                        self.plll_2.setAxisItems(axisItems={'bottom': stringaxis})
+                        self.plll_2.showGrid(x=True, y=True)
+                        self.layoutGraphWeek.addWidget(self.plll_2)
                 except:
                     self.label_week.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
