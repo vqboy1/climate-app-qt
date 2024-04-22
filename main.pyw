@@ -61,7 +61,15 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                         self.plll.plot(xtime, temperature)
                         stringaxis = pg.AxisItem(orientation='bottom')
                         stringaxis.setTicks([xdict.items()])
+                        self.plll.setLabel(
+                            "left",
+                            '<span style="color: white; font-size: 18px">Температура (°C)</span>'
+                        )
                         self.plll.setAxisItems(axisItems={'bottom': stringaxis})
+                        self.plll.setLabel(
+                            "bottom",
+                            '<span style="color: white; font-size: 18px">Время (Дни и часы)</span>'
+                        )
                         self.plll.showGrid(x=True, y=True)
                         self.layoutGraph5day.addWidget(self.plll)
 
@@ -156,7 +164,15 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                         self.plll_1.plot(xtime, temperature)
                         stringaxis = pg.AxisItem(orientation='bottom')
                         stringaxis.setTicks([xdict.items()])
+                        self.plll_1.setLabel(
+                            "left",
+                            '<span style="color: white; font-size: 18px">Температура (°C)</span>'
+                        )
                         self.plll_1.setAxisItems(axisItems={'bottom': stringaxis})
+                        self.plll_1.setLabel(
+                            "bottom",
+                            '<span style="color: white; font-size: 18px">Время (Час)</span>'
+                        )
                         self.plll_1.showGrid(x=True, y=True)
                         self.layoutGraphDay.addWidget(self.plll_1)
                 except:
@@ -188,7 +204,15 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                         self.plll_2.plot(xtime, temperature)
                         stringaxis = pg.AxisItem(orientation='bottom')
                         stringaxis.setTicks([xdict.items()])
+                        self.plll_2.setLabel(
+                            "left",
+                            '<span style="color: white; font-size: 18px">Температура (°C)</span>'
+                        )
                         self.plll_2.setAxisItems(axisItems={'bottom': stringaxis})
+                        self.plll_2.setLabel(
+                            "bottom",
+                            '<span style="color: white; font-size: 18px">Время (День недели)</span>'
+                        )
                         self.plll_2.showGrid(x=True, y=True)
                         self.layoutGraphWeek.addWidget(self.plll_2)
                 except:

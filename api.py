@@ -373,7 +373,7 @@ def get_time_5day(data):
     date = []
 
     for i in range(len(data)):
-        date.append(f'{data[i]["dt_txt"][8:10]}д \n {data[i]["dt_txt"][11:13]}ч\n')
+        date.append(f'{data[i]["dt_txt"][8:10]}д \n{data[i]["dt_txt"][11:13]}ч')
 
     return date
 
