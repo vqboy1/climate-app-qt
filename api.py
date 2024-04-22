@@ -177,32 +177,48 @@ def get_weather_1day(town):
     offset = data['timezone_offset']
     lst_temp = []
     lst_temp_f = []
+    lst_wind = []
+    lst_humid = []
     template = f'Время \t Температура \t Ощущается \t Влажность \t Ветер \t Направление \t Осадки\n\n'.expandtabs(16)
 
     for i in range(1, 25):
         data_h = data['hourly'][i]
         temp = float(round(data_h['temp'], 1))
         temp_f = float(round(data_h['feels_like'], 1))
+
         desc = data_h['weather'][0]['description']
         ID = data_h['weather'][0]['id']
         icon = data_h['weather'][0]['icon']
+
         humidity = data_h['humidity']
-        wind = str(data_h['wind_speed']) + ' м/с'
+
+        wind = data_h['wind_speed']
+        lst_wind.append(wind)
+        wind = str(wind) + ' м/с'
         wind_dir = degToCompass(data_h['wind_deg'])
+
         lst_temp.append(temp)
         lst_temp_f.append(temp_f)
+        lst_humid.append(humidity)
         ts = data['hourly'][i]['dt'] + offset
         hour = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S').split()[1][:5]
         template += f'{hour} \t {str(temp) + celc} \t {str(temp_f) + celc} ' \
                     f'\t {str(humidity) + "%"} \t {wind} \t {wind_dir} \t {emoji(ID, icon) + desc}\n\n'.expandtabs(16)
 
-    mid_temp = int(st.mean(lst_temp))
-    mid_temp_f = int(st.mean(lst_temp_f))
-    diff_temp = str(round(max(lst_temp) - min(lst_temp), 1))
-    diff_temp_f = str(round(max(lst_temp_f) - min(lst_temp_f), 1))
+    mid_temp = round(st.mean(lst_temp), 2)
+    mid_temp_f = round(st.mean(lst_temp_f), 2)
+    mid_humid = int(st.mean(lst_humid))
+    mid_wind = round(st.mean(lst_wind), 2)
+    diff_temp = str(round(max(lst_temp) - min(lst_temp), 2))
+    diff_temp_f = str(round(max(lst_temp_f) - min(lst_temp_f), 2))
+    diff_humid = str(int(max(lst_humid) - min(lst_humid)))
+    diff_wind = str(round(max(lst_wind) - min(lst_wind), 2))
 
-    template += f'\nСр арифм. \t {str(mid_temp)} C° \t {str(diff_temp)} C° \n\n'.expandtabs(16)
-    template += f'Размах   \t {str(mid_temp_f)} C° \t {str(diff_temp_f)} C°'.expandtabs(16)
+    template += f'\nСр арифм. \t {str(mid_temp)} C° \t {str(diff_temp)} C° \t' \
+                f' {str(mid_humid)} % \t {str(mid_wind)} м/с\n\n'.expandtabs(16)
+
+    template += f'Размах   \t {str(mid_temp_f)} C° \t {str(diff_temp_f)} C° \t' \
+                f' {diff_humid} % \t {diff_wind} м/с'.expandtabs(16)
 
     return template
 
@@ -224,6 +240,8 @@ def get_weather_7day(town):
                '\t  Осадки \n\n'.expandtabs(16)
     lst_min = []
     lst_max = []
+    lst_humid = []
+    lst_wind = []
 
     for i in range(7):
         ts = data['daily'][i]['dt'] + offset
@@ -235,7 +253,11 @@ def get_weather_7day(town):
         year, month, day = date[0], date[1], date[2]
 
         humidity = data_daily[i]['humidity']
-        wind = str(data_daily[i]['wind_speed']) + ' м/с'
+        lst_humid.append(humidity)
+
+        wind = data_daily[i]['wind_speed']
+        lst_wind.append(wind)
+        wind = str(wind) + ' м/с'
         wind_dir = degToCompass(data_daily[i]['wind_deg'])
 
         min_temp = round(data_daily[i]['temp']['min'], 1)
@@ -255,13 +277,20 @@ def get_weather_7day(town):
                     f' \t {wind} \t {wind_dir} \t  {emoji(ID, icon) + description}\n\n'.expandtabs(16)
 
     template += '\n' * 2
-    mid_min_temp = int(st.mean(lst_min))
-    mid_max_temp = int(st.mean(lst_max))
-    diff_min = str(round(max(lst_min) - min(lst_min), 1))
-    diff_max = str(round(max(lst_max) - min(lst_max), 1))
+    mid_min_temp = round(st.mean(lst_min), 2)
+    mid_max_temp = round(st.mean(lst_max), 2)
+    mid_humid = int(st.mean(lst_humid))
+    mid_wind = int(st.mean(lst_wind))
+    diff_min = str(round(max(lst_min) - min(lst_min), 2))
+    diff_max = str(round(max(lst_max) - min(lst_max), 2))
+    diff_humid = str(int(max(lst_humid) - min(lst_humid)))
+    diff_wind = str(round(max(lst_wind) - min(lst_wind), 2))
 
-    template += f'Среднее арифм. \t {str(mid_min_temp)} C° \t \t {str(mid_max_temp)} C° \n\n'.expandtabs(12)
-    template += f'Размах         \t {str(diff_min)} C° \t \t {str(diff_max)} C°'.expandtabs(12)
+    template += f'Среднее арифм. \t {str(mid_min_temp)} C° \t {str(mid_max_temp)} C° \t' \
+                f' {str(mid_humid)}% \t {str(mid_wind)} м/с\n\n'.expandtabs(16)
+
+    template += f'Размах         \t {str(diff_min)} C° \t {str(diff_max)} C° \t' \
+                f' {diff_humid}% \t {diff_wind} м/с'.expandtabs(16)
 
     return template
 
@@ -284,23 +313,55 @@ def get_label_weather_5day(town):
 
     response = requests.get(url)
     data = response.json()['list']
+    lst_temp = []
+    lst_temp_f = []
+    lst_humid = []
+    lst_wind = []
     template = 'Дата и время \t Температура \t Ощущается как \t Влажность \t ' \
                'Ветер \t Направление \t Осадки \n\n'.expandtabs(16)
     for i in range(len(data)):
         time = data[i]["dt_txt"][5:-3]
-        temp = str(data[i]["main"]["temp"])
-        temp_f = str(data[i]["main"]["feels_like"])
+
+        temp = data[i]["main"]["temp"]
+        lst_temp.append(temp)
+        temp = str(temp)
+
+        temp_f = data[i]["main"]["feels_like"]
+        lst_temp_f.append(temp_f)
+        temp_f = str(temp_f)
+
         desc = str(data[i]["weather"][0]["description"])
         ID = str(data[i]["weather"][0]["id"])
         icon = str(data[i]["weather"][0]["icon"])
-        humidity = str(data[i]['main']["humidity"]) + '%'
-        wind = str(data[i]["wind"]["speed"]) + ' м/с'
+
+        humidity = data[i]['main']["humidity"]
+        lst_humid.append(humidity)
+        humidity = str(humidity) + '%'
+
+        wind = data[i]["wind"]["speed"]
+        lst_wind.append(wind)
+        wind = str(wind) + ' м/с'
         wind_dir = degToCompass(data[i]['wind']['deg'])
-        print(icon)
 
         template += (
             f'{time} \t {temp + " C°"} \t {temp_f + " C°"} \t {humidity} \t '
-            f'{wind} \t {wind_dir} \t {emoji(ID, icon) + desc}\n\n').expandtabs(16)
+            f'{wind} \t {wind_dir} \t {emoji(ID, icon) + desc}\n').expandtabs(16)
+        template += '\n' * 2
+
+    mid_temp = round(st.mean(lst_temp), 2)
+    mid_temp_f = round(st.mean(lst_temp_f), 2)
+    mid_humid = int(st.mean(lst_humid))
+    mid_wind = round(st.mean(lst_wind), 2)
+    diff_temp = str(round(max(lst_temp) - min(lst_temp), 2))
+    diff_temp_f = str(round(max(lst_temp_f) - min(lst_temp_f), 2))
+    diff_humid = str(int(max(lst_humid) - min(lst_humid)))
+    diff_wind = str(round(max(lst_temp) - min(lst_temp), 2))
+
+    template += f'\nСреднее арифм. \t {str(mid_temp)} C° \t {str(mid_temp_f)} C° \t {str(mid_humid)} % \t' \
+                f' {str(mid_wind)} м/с\n\n'.expandtabs(16)
+
+    template += f'Размах         \t {str(diff_temp)} C° \t {str(diff_temp_f)} C° \t' \
+                f' {diff_humid}% \t {diff_wind} м/с'.expandtabs(16)
 
     return template
 
