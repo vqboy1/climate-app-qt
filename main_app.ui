@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>957</width>
-    <height>591</height>
+    <width>1034</width>
+    <height>775</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -231,8 +231,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>870</width>
-            <height>567</height>
+            <width>962</width>
+            <height>622</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -572,16 +572,16 @@
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QCheckBox" name="checkBox">
+           <widget class="QCheckBox" name="checkBoxEnableGraph">
             <property name="text">
              <string>Включить графики в прогноз</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBox_2">
+           <widget class="QCheckBox" name="checkBoxMainToGraph">
             <property name="text">
-             <string>Переключать вкладку при запросе</string>
+             <string>Переключать вкладку &quot;Главная&quot; на &quot;График&quot;</string>
             </property>
            </widget>
           </item>
@@ -598,10 +598,74 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>885</width>
-            <height>455</height>
+            <width>962</width>
+            <height>639</height>
            </rect>
           </property>
+          <layout class="QVBoxLayout" name="verticalLayout_15">
+           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>День</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutGraphDay"/>
+           </item>
+           <item>
+            <widget class="Line" name="line_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+            <widget class="QLabel" name="label_10">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Неделя</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutGraphWeek"/>
+           </item>
+           <item>
+            <widget class="Line" name="line_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+            <widget class="QLabel" name="label_11">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Долгосрочно</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="layoutGraph5day"/>
+           </item>
+          </layout>
          </widget>
         </widget>
        </item>

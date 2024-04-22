@@ -47,6 +47,8 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                     data = get_weather_5day(town)
                     template = get_label_weather_5day(data)
                     self.label_longhourly.setText(template)
+                    if self.checkBoxMainToGraph.isChecked():
+                        self.tabWidget.setCurrentIndex(1)
                 except:
                     self.label_longhourly.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
@@ -56,8 +58,6 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
     #     if self.layoutGraph.count() > 0:
     #         self.layoutGraph.removeWidget(self.plll)
     #     town = self.lineEditTown.text()
-    #     if len(town) == 0 or not (graph_flag or bar_flag):
-    #         return
     #     data = get_weather_5day(town)
     #     temperature = get_temp_5day(data)
     #     time = get_time_5day(data)
@@ -69,7 +69,6 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
     #     stringaxis.setTicks([xdict.items()])
     #     self.plll.setAxisItems(axisItems={'bottom': stringaxis})
     #     self.layoutGraph.addWidget(self.plll)
-    #     self.lineEditTown.setText("")
 
     def on_get_air_pollution_press(self):
         town = self.lineEditTownAirPollution.text()
@@ -110,6 +109,8 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                                                        f"Направление ветра: {degToCompass(wind['deg'])} \n"
                                                        f"Давление: {round(prime['pressure'] * 0.75, 1)} мм. рт. ст. \n"
                                                        f"(изменения только по кнопке)")
+                    if self.checkBoxMainToGraph.isChecked():
+                        self.tabWidget.setCurrentIndex(1)
                 except:
                     self.label_current_weather.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
@@ -125,6 +126,8 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                     data = get_weather_1day(town)
                     template = get_label_weather_1day(data)
                     self.label_day.setText(template)
+                    if self.checkBoxMainToGraph.isChecked():
+                        self.tabWidget.setCurrentIndex(1)
                 except:
                     self.label_day.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
@@ -140,6 +143,8 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                     data = get_weather_7day(town)
                     template = get_label_weather_7day(data)
                     self.label_week.setText(template)
+                    if self.checkBoxMainToGraph.isChecked():
+                        self.tabWidget.setCurrentIndex(1)
                 except:
                     self.label_week.setText("Что-то пошло не так. Попробуйте еще раз")
         else:
