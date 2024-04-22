@@ -13,6 +13,12 @@ API_KEY = 'bd5e378503939ddaee76f12ad7a97608'
 geo_locator = Nominatim(user_agent='climate-app-qt')
 
 
+def degToCompass(num):
+    val = int((num / 22.5) + .5)
+    arr = ["С", "ССВ", "СВ", "ВСВ", "В", "ВЮВ", "ЮВ", "ЮЮВ", "Ю", "ЮЮЗ", "ЮЗ", "ЗЮЗ", "З", "ЗСЗ", "СЗ", "ССЗ"]
+    return arr[(val % 16)]
+
+
 def get_weather(town):
     # Замените YOUR_API_KEY на ваш API ключ OpenWeatherMap
     CITY_NAME = town
@@ -161,7 +167,8 @@ def get_weather_1day(town):
         lst_temp_f.append(temp_f)
         ts = data['hourly'][i]['dt'] + offset
         hour = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S').split()[1][:5]
-        template += f'{hour} \t {str(temp) + celc} \t {str(temp_f) + celc} \t {str(humidity) + "%"} \t {wind} \t {desc}\n\n'.expandtabs(16)
+        template += f'{hour} \t {str(temp) + celc} \t {str(temp_f) + celc} \t {str(humidity) + "%"} \t {wind} \t {desc}\n\n'.expandtabs(
+            16)
 
     mid_temp = int(st.mean(lst_temp))
     mid_temp_f = int(st.mean(lst_temp_f))
@@ -212,9 +219,11 @@ def get_weather_7day(town):
         min_temp = str(min_temp) + ' C°'
         max_temp = str(max_temp) + ' C°'
 
+
         description = data_daily[i]['weather'][0]['description']
         day_number = days[calendar.weekday(year, month, day)]
-        template += f'{day_number}       \t {min_temp} \t \t {max_temp}  \t \t {str(humidity) + "%"} \t \t {wind} \t \t  {description}\n\n'.expandtabs(12)
+        template += f'{day_number}       \t {min_temp} \t \t {max_temp}  \t \t {str(humidity) + "%"} \t \t {wind} \t \t  {description}\n\n'.expandtabs(
+            12)
 
     template += '\n' * 2
     mid_min_temp = int(st.mean(lst_min))
@@ -255,7 +264,8 @@ def get_label_weather_5day(town):
         humidity = str(data[i]['main']["humidity"]) + '%'
         wind = str(data[i]["wind"]["speed"]) + ' м/с'
         template += (
-            f'{time} \t {temp + " C°"} \t\t {temp_f + " C°"} \t \t {humidity} \t \t {wind} \t\t{desc}\n\n').expandtabs(12)
+            f'{time} \t {temp + " C°"} \t\t {temp_f + " C°"} \t \t {humidity} \t \t {wind} \t\t{desc}\n\n').expandtabs(
+            12)
 
     return template
 
