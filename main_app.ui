@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1007</width>
-    <height>783</height>
+    <width>957</width>
+    <height>591</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -231,8 +231,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>935</width>
-            <height>630</height>
+            <width>870</width>
+            <height>567</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -319,7 +319,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>Text label</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -396,7 +396,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -467,7 +467,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -538,7 +538,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -546,6 +546,62 @@
             </widget>
            </item>
           </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>Графики</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_11">
+       <item>
+        <widget class="QFrame" name="frame_9">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QCheckBox" name="checkBox">
+            <property name="text">
+             <string>Включить графики в прогноз</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_2">
+            <property name="text">
+             <string>Переключать вкладку при запросе</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QScrollArea" name="scrollArea_2">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>885</width>
+            <height>455</height>
+           </rect>
+          </property>
          </widget>
         </widget>
        </item>

@@ -31,6 +31,8 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
 
         self.btnGetWeatherAirPollution.clicked.connect(self.on_get_air_pollution_press)
 
+        self.tabWidget.setCurrentIndex(0)
+
     def town_name(self):
         town = self.lineEditTown.text()
         self.label_town.setText(f'Город: {town}')
@@ -42,7 +44,8 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                 self.label_longhourly.setText('Введите город')
             else:
                 try:
-                    template = get_label_weather_5day(town)
+                    data = get_weather_5day(town)
+                    template = get_label_weather_5day(data)
                     self.label_longhourly.setText(template)
                 except:
                     self.label_longhourly.setText("Что-то пошло не так. Попробуйте еще раз")
@@ -119,7 +122,8 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                 self.label_week.setText('Введите город')
             else:
                 try:
-                    template = get_weather_1day(town)
+                    data = get_weather_1day(town)
+                    template = get_label_weather_1day(data)
                     self.label_day.setText(template)
                 except:
                     self.label_day.setText("Что-то пошло не так. Попробуйте еще раз")
@@ -133,7 +137,8 @@ class MainApp(QtWidgets.QWidget, Ui_Form):
                 self.label_week.setText('Введите город')
             else:
                 try:
-                    template = get_weather_7day(town)
+                    data = get_weather_7day(town)
+                    template = get_label_weather_7day(data)
                     self.label_week.setText(template)
                 except:
                     self.label_week.setText("Что-то пошло не так. Попробуйте еще раз")

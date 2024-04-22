@@ -51,7 +51,7 @@ def get_weather(town):
     # Отправляем GET запрос и получаем данные о погоде
     response = requests.get(url)
     data = response.json()
-    template = ''
+    # template = ''
 
     # Извлекаем данные о погоде
     # Выводим данные о погоде
@@ -173,6 +173,11 @@ def get_weather_1day(town):
           f"&exclude=minutely,current,daily,alerts&units=metric&lang=ru"
     response = requests.get(url)
     data = response.json()
+
+    return data
+
+
+def get_label_weather_1day(data):
     celc = ' C°'
     offset = data['timezone_offset']
     lst_temp = []
@@ -215,10 +220,10 @@ def get_weather_1day(town):
     diff_wind = str(round(max(lst_wind) - min(lst_wind), 2))
 
     template += f'\nСр арифм. \t {str(mid_temp)} C° \t {str(diff_temp)} C° \t' \
-                f' {str(mid_humid)} % \t {str(mid_wind)} м/с\n\n'.expandtabs(16)
+                f' {str(mid_humid)}% \t {str(mid_wind)} м/с\n\n'.expandtabs(16)
 
     template += f'Размах   \t {str(mid_temp_f)} C° \t {str(diff_temp_f)} C° \t' \
-                f' {diff_humid} % \t {diff_wind} м/с'.expandtabs(16)
+                f' {diff_humid}% \t {diff_wind} м/с'.expandtabs(16)
 
     return template
 
@@ -233,6 +238,10 @@ def get_weather_7day(town):
     response = requests.get(url)
     data = response.json()
 
+    return data
+
+
+def get_label_weather_7day(data):
     offset = data['timezone_offset']
     dates = []
     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
@@ -298,21 +307,15 @@ def get_weather_7day(town):
 def get_weather_5day(town):
     CITY_NAME = town
 
-    url = f'https://api.openweathermap.org/data/2.5/forecast?q={CITY_NAME}&appid={API_KEY}'
-
-    response = requests.get(url)
-    data = response.json()
-
-    return data
-
-
-def get_label_weather_5day(town):
-    CITY_NAME = town
-
     url = f'https://api.openweathermap.org/data/2.5/forecast?q={CITY_NAME}&appid={API_KEY}&lang=ru&units=metric'
 
     response = requests.get(url)
     data = response.json()['list']
+
+    return data
+
+
+def get_label_weather_5day(data):
     lst_temp = []
     lst_temp_f = []
     lst_humid = []
@@ -357,7 +360,7 @@ def get_label_weather_5day(town):
     diff_humid = str(int(max(lst_humid) - min(lst_humid)))
     diff_wind = str(round(max(lst_temp) - min(lst_temp), 2))
 
-    template += f'\nСреднее арифм. \t {str(mid_temp)} C° \t {str(mid_temp_f)} C° \t {str(mid_humid)} % \t' \
+    template += f'\nСреднее арифм. \t {str(mid_temp)} C° \t {str(mid_temp_f)} C° \t {str(mid_humid)}% \t' \
                 f' {str(mid_wind)} м/с\n\n'.expandtabs(16)
 
     template += f'Размах         \t {str(diff_temp)} C° \t {str(diff_temp_f)} C° \t' \
